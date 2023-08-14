@@ -49,15 +49,28 @@
           </li>
         </ul>
         <form class="d-flex" role="search">
-          <input class="form-control me-2 bg-dark border-0" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-danger" type="submit">Search</button>
+          <input id="searchInput" class="form-control me-2 bg-secondary p-1 border-0" type="search" placeholder="Search" aria-label="Search">
+          <!-- <button id="search" class="btn btn-outline-danger" type="submit">Search</button> -->
+
+          <div class="dropstart">
+            <a id="search" class="btn btn-secondary  border-0 " type="submit" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-search"></i>
+            </a>
+            <ul id="searchList" class="list-group">
+              
+            </ul>
+          </div>
+          
+
         </form>
       </div>
     </div>
   </nav>
 
 
-
+  <ul id="searchList" class="list-group">
+              
+  </ul>
 
 
   <div class="container">

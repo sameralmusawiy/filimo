@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(26, 25, 25);
+    background-color: rgb(29, 27, 27);
 }
 
 
@@ -7,7 +7,12 @@ body{
     border:0px solid black;
     border-radius: 20px;
     cursor: pointer;
+    color: lightgray !important;
+    transition: 0.5s;
 
+}
+.card:hover{
+    color: rgb(240, 55, 55) !important;
 }
 
 .movie-img{
@@ -21,3 +26,4 @@ body{
     opacity: 0.5;
 
 }
+
