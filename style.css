@@ -1,3 +1,23 @@
 body{
     background-color: rgb(26, 25, 25);
 }
+
+
+.card{
+    border:0px solid black;
+    border-radius: 20px;
+    cursor: pointer;
+
+}
+
+.movie-img{
+    transition: 0.8s;
+    border-radius: 20px;
+
+}
+
+.movie-img:hover{
+    transform: scale(0.95);
+    opacity: 0.5;
+
+}
