@@ -10,12 +10,11 @@ let search_URL = `https://api.themoviedb.org/3/search/collection?&api_key=${API_
 
 let poupolar = document.getElementById("poupolar");
 let trending = document.getElementById("trending");
+let genresList = document.getElementById("genres-list");
 
+// let trailer = document.getElementById("trailer");
 
-
-let trailer = document.getElementById("trailer");
-
-
+// function to get poupolar movies
 const getFilm = async () => {
     try {
         const response = await fetch(`${API_URL}${API_Key}`);
@@ -28,12 +27,14 @@ const getFilm = async () => {
 
 };
 
-
+// function to get trending movies
 const trendingFilm = async () => {
     try {
         const response = await fetch(`${trending_URL}${API_Key}`);
         const rowData = await response.json();
         let data = rowData.results;
+        console.log(data);
+
         showMovies(data, trending);
     } catch (error) {
         console.log("there is an error");
@@ -41,16 +42,36 @@ const trendingFilm = async () => {
 };
 
 
+// function to show movies, we call it in Poupolar and Trending functions 
+async function showMovies(movies, parentElement) {
+    movies.forEach(async (movie) => {
+        let movieEle = document.createElement("div");
+        movieEle.classList.add("col");
+        movieEle.innerHTML = `
+        <div class="card bg-dark border-0 mt-4">
+          <img id ="movieImg" src="${IMG_URL + movie.poster_path}" class="card-img-top movie-img" alt="...">
+          <div class="card-body border-0 text-center p-0">
+            <h6 class="card-title">${movie.title}</h6>
+            <span class="card-title small">${movie.release_date}</span>
+
+          </div>
+        </div>
+        `;
+        movieEle.addEventListener("click", () => {
+            window.location.href = `details.html?id=${movie.id}`;
+        });
+        parentElement.appendChild(movieEle);
+    });
+};
 
 
 
 
+// this script of code deal with search operation.
 let search = document.getElementById("search");
 let searchInput = document.getElementById("searchInput");
 let searchList = document.getElementById("searchList");
-
-let q;
-search.addEventListener("click", (e)=>{
+search.addEventListener("click", (e) => {
     let searchKeyWord = searchInput.value;
 
     e.preventDefault();
@@ -59,7 +80,6 @@ search.addEventListener("click", (e)=>{
             const collection = await fetch(`${search_URL}${searchKeyWord}`);
             const collectionData = await collection.json();
             let data = collectionData.results;
-            console.log(data);
             showSearchMovies(data, searchList);
         } catch (error) {
             console.log("there is an error");
@@ -68,36 +88,15 @@ search.addEventListener("click", (e)=>{
     q();
 });
 
-
-
-
-
-async function showMovies(movies, parentElement) {
-
-    movies.forEach(async (movie) => {
-        let movieEle = document.createElement("div");
-        movieEle.classList.add("col");
-        movieEle.innerHTML = `
-        <div class="card bg-dark border-0 mt-4">
-          <img id ="movieImg" src="${IMG_URL + movie.poster_path}" class="card-img-top movie-img" alt="...">
-          <div class="card-body border-0 m-2  p-0">
-            <h6 class="card-title ">${movie.title}</h6>
-          </div>
-        </div>
-        `;
-        parentElement.appendChild(movieEle);
-
-    });
-};
-
 async function showSearchMovies(movies, parentElement) {
 
     movies.forEach(async (movie) => {
         let movieEle = document.createElement("div");
         movieEle.classList.add("col");
         movieEle.innerHTML = `
-       
-            <li class="list-group-item">${movie.name}</li>
+        <li><a class="dropdown-item" href="#">${movie.name}</a></li>
+        <li><hr class="dropdown-divider"></li>
+
         `;
         parentElement.appendChild(movieEle);
 
@@ -105,9 +104,9 @@ async function showSearchMovies(movies, parentElement) {
 };
 
 
+
+
 getFilm();
-
-
 trendingFilm();
 
 
